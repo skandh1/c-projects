@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 class node
@@ -120,13 +121,13 @@ public:
             node *temp = head;
             while (head->data != key)
             {
-                head = head->next;
                 if (head->next == NULL)
                 {
                     cout << "no value found reinter value";
                     head = temp;
                     return 0;
                 }
+                head = head->next;
             }
             x->next = head->next;
             head->next = x;
@@ -135,7 +136,29 @@ public:
             return 0;
         }
     }
+    void deleteValue(int val)
+    {
+        node *temp = head;
+        if (head->data == val)
+        {
+            deleteFront();
+            return;
+        }
+        while (head->next != NULL)
+        {
+            if (head->next->data == val)
+            {
+                head->next = head->next->next;
+                head = temp;
 
+                cout << "Value deleted \n";
+                return;
+            }
+            head = head->next;
+        }
+        head = temp;
+        cout << "value not found \n";
+    }
     int insertBefore(int key, int val)
     {
         node *x = new node(val);
@@ -174,6 +197,10 @@ public:
 int main()
 {
     linkedlist list;
+    for (int i = 0; i < 10; i++)
+    {
+        list.insertAtFront(rand() / 100);
+    }
     int n, key, number;
     do
     {
@@ -185,7 +212,8 @@ int main()
         cout << "5. Delete from front \n";
         cout << "6. Insert after \n";
         cout << "7. insert before \n";
-        cout << "8. exit \n ";
+        cout << "8  delete a specific value \n";
+        cout << "9. exit \n ";
 
         cin >> n;
 
@@ -225,11 +253,17 @@ int main()
             list.insertBefore(key, number);
             break;
         case 8:
-            cout << "see you soon";
+            cout << "choose the value you want to delete\n";
+            cin >> number;
+            list.deleteValue(number);
+            break;
+        case 9:
+            cout << "see you soon\n";
+            break;
         default:
             cout << "Invalid choice. Please try again.\n";
         }
-    } while (n != 8);
+    } while (n != 9);
 
     return 0;
 }
