@@ -229,7 +229,7 @@ int main()
         default:
             cout << "Invalid choice. Please try again.\n";
         }
-    } while (n != 9);
+    } while (n != 8);
 
     return 0;
 }
